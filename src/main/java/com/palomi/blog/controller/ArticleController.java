@@ -1,14 +1,13 @@
 package com.palomi.blog.controller;
 
+import com.palomi.blog.exception.ResourceNotFoundException;
 import com.palomi.blog.model.Article;
 import com.palomi.blog.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +25,16 @@ public class ArticleController {
     @PostMapping("/articles")
     public Article createArticle(@Valid @RequestBody Article article) {
         return articleRepository.save(article);
+    }
+
+    @PutMapping("/articles/{articleId}")
+    public Article updateArticle(@PathVariable Long articleId,
+                                 @Valid @RequestBody Article articleRequest) {
+        return articleRepository.findById(articleId)
+                .map(article -> {
+                    article.setText(articleRequest.getText());
+                    return articleRepository.save(article);
+                }).orElseThrow(() -> new ResourceNotFoundException("Article not found with id " + articleId + "!"));
     }
 
 }
