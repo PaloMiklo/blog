@@ -18,12 +18,12 @@ import java.time.ZonedDateTime;
 )
 public abstract class Model implements Serializable {
     @CreationTimestamp
-    @Column(name="created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
     private ZonedDateTime createdAt;
 
     @CreationTimestamp
-    @Column(name="updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
     private ZonedDateTime updatedAt;
 

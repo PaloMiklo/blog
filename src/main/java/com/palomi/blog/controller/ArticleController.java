@@ -37,4 +37,14 @@ public class ArticleController {
                 }).orElseThrow(() -> new ResourceNotFoundException("Article not found with id " + articleId + "!"));
     }
 
+    @DeleteMapping("/articles/{articleId}")
+    public ResponseEntity<?> deleteArticle(@PathVariable Long articleId) {
+        return articleRepository.findById(articleId)
+                .map(article -> {
+                    articleRepository.delete(article);
+//                    return ResponseEntity.ok().build();
+                    return ResponseEntity.ok("Article with id " + articleId + " was successfully deleted!");
+                }).orElseThrow(() -> new ResourceNotFoundException("Article not found with id " + articleId + "!"));
+    }
+
 }
