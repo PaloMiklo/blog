@@ -20,6 +20,17 @@ public class Article extends Model {
     @Size(min = 3, max = 100)
     private String title;
 
+    @Column(columnDefinition = "text")
+    private String text;
+
+    public Article(String title, String text) {
+        this.title = title;
+        this.text = text;
+    }
+
+    protected Article() {
+    }
+
     public String getTitle() {
         return title;
     }
@@ -27,9 +38,6 @@ public class Article extends Model {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    @Column(columnDefinition = "text")
-    private String text;
 
     public Long getId() {
         return id;

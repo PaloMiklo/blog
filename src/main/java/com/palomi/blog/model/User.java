@@ -20,8 +20,7 @@ public class User extends Model {
         this.password = password;
     }
 
-    protected User() {
-    }
+    protected User() {}
 
     public void setId(long id) {
         this.id = id;
