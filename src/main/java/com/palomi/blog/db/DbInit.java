@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class DbInit implements CommandLineRunner {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -23,8 +24,8 @@ public class DbInit implements CommandLineRunner {
         this.userRepository.deleteAll();
 
         // create mock users
-        User pavol = new User("palomi", passwordEncoder.encode("test"), "USER","");
-        User marek = new User("marekmi", passwordEncoder.encode("test"), "ADMIN","ACCESS_TEST1,ACCESS_TEST2");
+        User pavol = new User("palomi", passwordEncoder.encode("test"));
+        User marek = new User("marekmi", passwordEncoder.encode("test"));
 
         List<User> users = Arrays.asList(pavol, marek);
         // save to db

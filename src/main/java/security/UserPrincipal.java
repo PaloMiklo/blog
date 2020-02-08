@@ -2,7 +2,6 @@ package security;
 
 import com.palomi.blog.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -20,18 +19,6 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        // Extract list of permissions (name)
-        this.user.getPermissionList().forEach(p -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority(p);
-            authorities.add(authority);
-        });
-
-        // Extract list of roles (ROLE_name)
-        this.user.getRoleList().forEach(r -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
-            authorities.add(authority);
-        });
-
         return authorities;
     }
 
@@ -39,10 +26,12 @@ public class UserPrincipal implements UserDetails {
     public String getPassword() {
         return this.user.getPassword();
     }
+
     @Override
     public String getUsername() {
         return this.user.getUsername();
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -60,7 +49,8 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.user.getActive() == 1;
+//        return this.user.getActive() == 1;
+        return true;
     }
 
 }

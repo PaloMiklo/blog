@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 
-
-// temporary to disable generating security code in console after start up till I set up auth
+// temporary to disable 401 (and generating security code in console after start up) till I'll set up security
 // (exclude = {SecurityAutoConfiguration.class })
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class BlogApplication {
 
     public static void main(String[] args) {
